@@ -1,0 +1,25 @@
+<div
+  (click)="onClose()"
+  [ngClass]="{
+    open: modalType === currentModal
+  }"
+  class="modal-overlay"
+></div>
+<div
+  id="create-modal"
+  [ngClass]="{
+    open: modalType === currentModal,
+    cartModal: cartModal
+  }"
+  class="modal"
+>
+  <div class="modal-content">
+    <h4 class="mb1">{{ title }}</h4>
+    <p *ngIf="text">{{ text }}</p>
+
+    <ng-content></ng-content>
+  </div>
+  <div class="modal-footer">
+    <ng-content select="[buttons]"></ng-content>
+  </div>
+</div>

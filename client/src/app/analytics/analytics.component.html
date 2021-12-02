@@ -1,0 +1,21 @@
+<app-sidebar-header (logout)="logout()"></app-sidebar-header>
+
+<main class="content">
+  <div class="page-title">
+    <h4>Аналитика</h4>
+  </div>
+
+  <app-analytics-view
+    *ngIf="
+      (isLoading$ | async) === false && (analytics$ | async) as analytics;
+      else loader
+    "
+    [analytics]="analytics"
+  ></app-analytics-view>
+</main>
+
+<ng-template #loader>
+  <div class="center">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

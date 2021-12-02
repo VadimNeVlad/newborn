@@ -1,0 +1,3 @@
+[submodule "newborn-ngrx"]
+	path = newborn-ngrx
+	url = https://github.com/VadimNeVlad/newborn-ngrx.git

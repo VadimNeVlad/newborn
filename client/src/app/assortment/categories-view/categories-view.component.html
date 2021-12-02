@@ -1,0 +1,18 @@
+<div class="page-title">
+  <h4>Категории</h4>
+  <app-button routerLink="category" color="grey">Добавить категорию</app-button>
+</div>
+
+<app-category-list
+  *ngIf="
+    (loading$ | async) === false && (categories$ | async) as categories;
+    else loader
+  "
+  [categories]="categories"
+></app-category-list>
+
+<ng-template #loader>
+  <div class="center">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

@@ -1,0 +1,81 @@
+<app-sidebar-header (logout)="logout()"></app-sidebar-header>
+
+<main class="content">
+  <div class="page-title">
+    <h4>История заказов</h4>
+    <app-button (click)="filterVisible = !filterVisible">
+      <i class="material-icons">filter_list</i>
+    </app-button>
+  </div>
+
+  <app-history-filter
+    *ngIf="filterVisible"
+    (filter)="applyFilter($event)"
+  ></app-history-filter>
+
+  <app-history-list
+    *ngIf="
+      (isLoading$ | async) === false && (orders$ | async) as orders;
+      else loader
+    "
+    [orders]="orders"
+    (orderInfo)="getOrderInfo($event)"
+    (modalType)="openModal($event)"
+  ></app-history-list>
+
+  <app-modal
+    [currentModal]="modalOpenType$ | async"
+    [title]="'Заказ №' + order?.order"
+    [cartModal]="true"
+    [modalType]="'orderHistory-' + order?._id"
+  >
+    <table class="highlight">
+      <thead>
+        <tr>
+          <th>Название</th>
+          <th>Количество</th>
+          <th>Цена</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let orderList of order?.list; trackBy: trackById">
+        <tr>
+          <td>{{ orderList.name }}</td>
+          <td>{{ orderList.quantity }}</td>
+          <td>{{ orderList.cost }} руб.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="order-summary">
+      <p>
+        Общая стоимость <strong>{{ calculatePrice(order) }} руб.</strong>
+      </p>
+    </div>
+    <ng-container buttons>
+      <app-button (click)="closeModal()">Закрыть</app-button>
+    </ng-container>
+  </app-modal>
+
+  <div *ngIf="(isLastOrder$ | async) === false" class="center mb2">
+    <app-button
+      *ngIf="(isPending$ | async) === false; else loaderBtn"
+      color="grey"
+      size="btn-small"
+      (click)="loadMore()"
+    >
+      Загрузить еще
+    </app-button>
+
+    <ng-template #loaderBtn>
+      <div class="center">
+        <app-loader [btnLoader]="true"></app-loader>
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #loader>
+    <div class="center">
+      <app-loader></app-loader>
+    </div>
+  </ng-template>
+</main>

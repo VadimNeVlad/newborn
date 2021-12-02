@@ -1,0 +1,27 @@
+<div *ngIf="positions.length !== 0; else empty" class="collection">
+  <div
+    *ngFor="let position of positions; trackBy: trackById"
+    class="collection-item collection-item-icon"
+  >
+    <span>
+      {{ position.name }} <strong>{{ position.cost }} руб.</strong>
+    </span>
+
+    <div class="position__btns">
+      <app-edit-position
+        [positionId]="position._id || ''"
+        [position]="position"
+      ></app-edit-position>
+
+      <span (click)="onPositionHandle(position, 'deletePosition-')">
+        <i class="material-icons">delete</i>
+      </span>
+    </div>
+  </div>
+</div>
+
+<ng-template #empty>
+  <div class="center">
+    <h5>Позиций нет</h5>
+  </div>
+</ng-template>

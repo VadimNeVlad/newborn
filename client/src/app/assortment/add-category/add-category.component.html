@@ -1,0 +1,44 @@
+<div class="page-title">
+  <h4>
+    <a routerLink="/assortment">Категории</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    Добавить Категорию
+  </h4>
+</div>
+
+<div class="row info-content">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="col s12 l6">
+    <app-input
+      label="Название"
+      id="name"
+      type="text"
+      [control]="getInputName('name')"
+    ></app-input>
+
+    <div class="mb-15px">
+      <input (input)="onImageSelect($event)" type="file" id="file" />
+      <app-button buttonType="button" color="orange">
+        <label for="file">
+          <i class="material-icons left">backup</i>
+          Загрузить изображение
+        </label>
+      </app-button>
+    </div>
+
+    <app-button
+      [disabled]="categoryForm.invalid || (pending$ | async) || false"
+      type="submit"
+    >
+      Добавить Категорию
+    </app-button>
+  </form>
+
+  <div class="col s12 l4 center">
+    <img
+      *ngIf="imagePreview"
+      class="responsive-img"
+      style="height: 200px"
+      [src]="imagePreview"
+    />
+  </div>
+</div>

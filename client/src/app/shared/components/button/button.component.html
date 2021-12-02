@@ -1,0 +1,14 @@
+<button
+  [type]="buttonType"
+  [ngClass]="{
+    grey: color === 'grey',
+    orange: color === 'orange',
+    red: color === 'red',
+    'btn-flat': color === 'transparent',
+    'btn-small': size === 'small'
+  }"
+  [disabled]="disabled"
+  class="modal-action btn waves-effect"
+>
+  <ng-content></ng-content>
+</button>

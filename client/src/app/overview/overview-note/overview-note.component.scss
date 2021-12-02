@@ -1,0 +1,20 @@
+.tap-target-wrapper {
+  position: absolute;
+  top: 0;
+  left: -380px;
+
+  .tap-target-content {
+    width: 440px;
+    height: 400px;
+    inset: 0px 0px 0px 360px;
+    padding: 40px;
+    vertical-align: bottom;
+  }
+
+  .tap-target-wave {
+    top: 360px;
+    left: 360px;
+    width: 80px;
+    height: 80px;
+  }
+}

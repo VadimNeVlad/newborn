@@ -1,0 +1,32 @@
+<div class="page-title">
+  <h4>Заказ</h4>
+  <app-button color="grey" (click)="openModal('orderSum')"
+    ><i class="material-icons">add_shopping_cart</i>
+    <div *ngIf="orderBuilder.orderList.length > 0" class="cart-counter">
+      <span>{{ orderBuilder.orderList.length }}</span>
+    </div>
+  </app-button>
+</div>
+
+<app-order-list
+  *ngIf="
+    (isLoading$ | async) === false && (categories$ | async) as categories;
+    else loader
+  "
+  [orders]="categories"
+></app-order-list>
+
+<app-order-cart
+  [currentModal]="modalOpenType$ | async"
+  [orderList]="orderBuilder.orderList"
+  [price]="orderBuilder.price"
+  (closeModal)="closeModal()"
+  (deleteItem)="deleteItem($event)"
+  (submit)="submitOrder()"
+></app-order-cart>
+
+<ng-template #loader>
+  <div class="center">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

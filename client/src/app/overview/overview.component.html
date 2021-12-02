@@ -1,0 +1,31 @@
+<app-sidebar-header (logout)="logout()"></app-sidebar-header>
+
+<main class="content">
+  <div class="page-title">
+    <h4>
+      Обзор за вчера ({{ yesterdayDate }})
+      <i
+        (click)="noteStatus = !noteStatus"
+        class="material-icons black-text pointer"
+        id="dashboard-info"
+        >info_outline</i
+      >
+    </h4>
+  </div>
+
+  <app-overview-view
+    *ngIf="
+      (isLoading$ | async) === false && (overview$ | async) as overview;
+      else loader
+    "
+    [overview]="overview"
+  ></app-overview-view>
+</main>
+
+<app-overview-note [noteStatus]="noteStatus"></app-overview-note>
+
+<ng-template #loader>
+  <div class="center">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

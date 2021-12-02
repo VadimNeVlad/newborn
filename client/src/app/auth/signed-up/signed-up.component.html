@@ -1,0 +1,23 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="card">
+  <div class="card-content">
+    <span class="card-title">Создать аккаунт</span>
+    <app-input
+      label="Email"
+      id="email"
+      type="text"
+      [control]="getInputName('email')"
+    ></app-input>
+
+    <app-input
+      label="Пароль"
+      id="password"
+      type="password"
+      [control]="getInputName('password')"
+    ></app-input>
+  </div>
+  <div class="card-action">
+    <app-button [disabled]="authForm.invalid || (pending$ | async) || false">
+      Войти
+    </app-button>
+  </div>
+</form>

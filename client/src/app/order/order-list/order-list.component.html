@@ -1,0 +1,23 @@
+<div *ngIf="orders.length !== 0; else empty" class="frow order-row">
+  <a
+    [routerLink]="category._id"
+    *ngFor="let category of orders; trackBy: trackById"
+    class="card waves-effect pointer"
+  >
+    <div class="center img-wrap">
+      <img
+        [src]="baseUrl + category.imageSrc"
+        class="responsive-img order-img"
+      />
+    </div>
+    <div class="card-content center p10">
+      <h5 class="m0">{{ category.name }}</h5>
+    </div>
+  </a>
+</div>
+
+<ng-template #empty>
+  <div class="center">
+    <h4>Категорий нет</h4>
+  </div>
+</ng-template>

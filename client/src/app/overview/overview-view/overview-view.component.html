@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col s12 l6">
+    <div class="card light-blue lighten-2 white-text">
+      <div class="card-content">
+        <span class="card-title">Выручка:</span>
+        <h3>{{ overview.gain.yesterday }} руб.</h3>
+        <h3
+          class="m0 mb1"
+          [ngClass]="{
+            'green-text text-darken-2': overview.gain.isHigher,
+            'red-text': !overview.gain.isHigher
+          }"
+        >
+          <i class="material-icons">{{
+            overview.gain.isHigher ? "arrow_upward" : "arrow_downward"
+          }}</i>
+        </h3>
+        <p>
+          Выручка вашего бизнеса вчера на {{ overview.gain.percent }}%
+          {{ overview.gain.isHigher ? "выше" : "ниже" }} среднего:
+          {{ overview.gain.compare }} руб. в день
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 l6">
+    <div class="card orange lighten-2 white-text">
+      <div class="card-content">
+        <span class="card-title">Заказы:</span>
+        <h3>{{ overview.orders.yesterday }} зак.</h3>
+        <h3
+          class="m0 mb1"
+          [ngClass]="{
+            'green-text text-darken-2': overview.orders.isHigher,
+            'red-text': !overview.orders.isHigher
+          }"
+        >
+          <i class="material-icons">
+            {{ overview.orders.isHigher ? "arrow_upward" : "arrow_downward" }}
+          </i>
+          {{ overview.orders.percent }}%
+        </h3>
+        <p>
+          Число заказов вчера на
+          {{ overview.orders.percent }}%
+          {{ overview.orders.isHigher ? "выше" : "ниже" }} среднего значения:
+          {{ overview.orders.compare }} зак. в день
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

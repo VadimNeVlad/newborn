@@ -1,0 +1,73 @@
+<div class="page-title">
+  <h4>
+    <a routerLink="/assortment">Категории</a>
+    <i class="material-icons">keyboard_arrow_right</i>
+    Редактировать Категорию
+  </h4>
+  <app-button
+    color="red"
+    size="btn-small"
+    (click)="openModal('deleteCategory' + categoryId)"
+  >
+    <i class="material-icons">delete</i>
+  </app-button>
+</div>
+
+<div class="row info-content">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="col s12 l6">
+    <app-input
+      label="Название"
+      id="name"
+      type="text"
+      [control]="getInputName('name')"
+    ></app-input>
+
+    <div class="mb-15px">
+      <input (input)="onImageSelect($event)" type="file" id="file" />
+      <app-button buttonType="button" color="orange">
+        <label for="file">
+          <i class="material-icons left">backup</i>
+          Загрузить изображение
+        </label>
+      </app-button>
+    </div>
+
+    <app-button
+      [disabled]="
+        (categoryForm.pristine && isImagePrestine) ||
+        (loading$ | async) ||
+        (isPending$ | async) ||
+        false
+      "
+    >
+      Сохранить изменения
+    </app-button>
+  </form>
+
+  <div class="col s12 l4 center">
+    <img
+      *ngIf="imagePreview && !(loading$ | async)"
+      class="responsive-img"
+      style="height: 200px"
+      [src]="imagePreview"
+    />
+  </div>
+</div>
+
+<app-positions-view></app-positions-view>
+
+<app-modal
+  [currentModal]="modalOpenType$ | async"
+  title="Удалить Категорию"
+  [text]="'Вы уверены что хотите удалить категорию ?'"
+  [modalType]="'deleteCategory' + categoryId"
+>
+  <ng-container buttons>
+    <app-button type="button" color="transparent" (click)="closeModal()">
+      Отмена
+    </app-button>
+    <app-button [disabled]="(isPending$ | async) || false" (click)="onDelete()">
+      Удалить
+    </app-button>
+  </ng-container>
+</app-modal>

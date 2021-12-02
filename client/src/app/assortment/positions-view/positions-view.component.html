@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col s12">
+    <app-add-position></app-add-position>
+    <app-position-list
+      *ngIf="
+        (isLoading$ | async) === false && (positions$ | async) as positions;
+        else loader
+      "
+      [positions]="positions"
+      (positionInfo)="getPositionInfo($event)"
+      (modalType)="openModal($event)"
+    ></app-position-list>
+
+    <app-modal
+      title="Удалить Позицию"
+      [currentModal]="modalOpenType$ | async"
+      [text]="'Вы уверены что хотите удалить позицию ' + position?.name + '?'"
+      [modalType]="'deletePosition-' + position?._id"
+    >
+      <ng-container buttons>
+        <app-button
+          buttonType="button"
+          color="transparent"
+          (click)="closeModal()"
+        >
+          Отмена
+        </app-button>
+        <app-button (click)="deletePosition()"> Удалить </app-button>
+      </ng-container>
+    </app-modal>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="center">
+    <app-loader></app-loader>
+  </div>
+</ng-template>

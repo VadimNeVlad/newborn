@@ -1,0 +1,24 @@
+<div class="average-price">
+  <p>
+    Средний чек <strong>{{ analytics.average }} р.</strong>
+  </p>
+</div>
+
+<div class="analytics-block pb3">
+  <h5>Выручка</h5>
+  <app-bar-chart
+    [charts]="analytics.chart"
+    chartColor="rgba(255,0,0,0.3)"
+    chartLabel="Выручка"
+  ></app-bar-chart>
+</div>
+
+<div class="analytics-block">
+  <h5>Заказы</h5>
+  <app-bar-chart
+    [charts]="analytics.chart"
+    [isGain]="false"
+    chartColor="rgba(54, 162, 235, 0.3)"
+    chartLabel="Заказы"
+  ></app-bar-chart>
+</div>

@@ -1,0 +1,37 @@
+<table *ngIf="positions.length !== 0; else empty" class="highlight">
+  <thead>
+    <tr>
+      <th>Название</th>
+      <th>Стоимость</th>
+      <th>Количество</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let position of positions; trackBy: trackById">
+      <td>{{ position.name }}</td>
+      <td>{{ position.cost }} руб.</td>
+      <td>
+        <div class="input-field inline order-position-input">
+          <input type="number" min="1" [(ngModel)]="position.quantity" />
+        </div>
+      </td>
+      <td>
+        <app-button
+          [disabled]="!position.quantity"
+          size="small"
+          (click)="onAddItem(position)"
+        >
+          Добавить
+        </app-button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #empty>
+  <div class="center">
+    <h5>В данный момент категорий нет</h5>
+  </div>
+</ng-template>

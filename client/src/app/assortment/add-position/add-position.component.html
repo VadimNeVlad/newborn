@@ -1,0 +1,42 @@
+<div class="page-subtitle">
+  <h4>Позиции:</h4>
+  <app-button color="grey" size="small" (click)="openModal('addPosition')">
+    Добавить позицию
+  </app-button>
+</div>
+
+<form [formGroup]="positionForm" (ngSubmit)="onSubmit()">
+  <app-modal
+    [currentModal]="modalOpenType$ | async"
+    title="Добавить Позицию"
+    modalType="addPosition"
+  >
+    <app-input
+      label="Название"
+      id="name"
+      type="text"
+      [control]="getInputName('name')"
+    ></app-input>
+    <app-input
+      label="Стоимость"
+      type="number"
+      id="cost"
+      [control]="getInputName('cost')"
+    ></app-input>
+    <ng-container buttons>
+      <app-button
+        class="mr-15px"
+        color="transparent"
+        buttonType="button"
+        (click)="closeModal()"
+      >
+        Отмена
+      </app-button>
+      <app-button
+        [disabled]="positionForm.invalid || (isPending$ | async) || false"
+      >
+        Добавить
+      </app-button>
+    </ng-container>
+  </app-modal>
+</form>

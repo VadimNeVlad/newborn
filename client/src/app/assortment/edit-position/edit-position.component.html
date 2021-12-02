@@ -1,0 +1,38 @@
+<span (click)="openModal('editPosition' + positionId)" class="edit-btn">
+  <i class="material-icons">edit</i>
+</span>
+
+<form [formGroup]="positionForm" (ngSubmit)="onSubmit()">
+  <app-modal
+    title=" Изменить Позицию"
+    [currentModal]="modalOpenType$ | async"
+    [modalType]="'editPosition' + positionId"
+  >
+    <app-input
+      label="Название"
+      id="name"
+      type="text"
+      [control]="getInputName('name')"
+    ></app-input>
+    <app-input
+      label="Стоимость"
+      type="number"
+      id="cost"
+      [control]="getInputName('cost')"
+    ></app-input>
+    <ng-container buttons>
+      <app-button
+        buttonType="button"
+        color="transparent"
+        (click)="closeModal()"
+      >
+        Отмена
+      </app-button>
+      <app-button
+        [disabled]="positionForm.invalid || (isPending$ | async) || false"
+      >
+        Добавить
+      </app-button>
+    </ng-container>
+  </app-modal>
+</form>
